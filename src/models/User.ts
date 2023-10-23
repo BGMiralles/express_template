@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm"
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -16,8 +16,8 @@ export class User extends BaseEntity {
     @Column()
     rol!: string
     @Column()
-    created_at!: Timestamp
+    created_at!: Date
     @Column()
-    update_at!: Timestamp
+    updated_at!: Date
     
 }

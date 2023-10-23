@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 4004;
 
 app.use(express.json()) //middleware
-app.use("/films", routerUsers);
+app.use("/users", routerUsers);
 
 AppDataSource.initialize()
 .then(() => {
