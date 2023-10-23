@@ -5,20 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
-app.get("/films", (req, res) => {
+app.get("/users", (req, res) => {
     return res.send();
 });
-app.post("/films", (req, res) => {
+app.post("/users", (req, res) => {
     return res.send();
 });
-app.put("/films/:id", (req, res) => {
+app.put("/users/:id", (req, res) => {
     const filmsId = req.params.id;
     return res.send();
 });
-app.delete("/films/:id", (req, res) => {
+app.delete("/users/:id", (req, res) => {
     const filmsId = req.params.id;
     return res.send();
 });
-app.listen(4000, () => {
+app.listen(4001, () => {
     console.log("Server running");
 });

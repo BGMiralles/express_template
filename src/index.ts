@@ -1,29 +1,22 @@
 import express from "express"
-const app = express()
+import { routerUsers } from "./routes/usersRouters";
+import { AppDataSource } from "./routes/db";
 
-app.get("/films", (req, res) => {
+const app = express();
 
-    return res.send() 
+const PORT = process.env.PORT || 4004;
+
+app.use(express.json()) //middleware
+app.use("/films", routerUsers);
+
+AppDataSource.initialize()
+.then(() => {
+ console.log('Database connected');
+
+ app.listen(PORT, () => {
+   console.log(`Server running ${PORT}`);
+ });
 })
-
-app.post("/films", (req, res)=> {
-
-    return res.send()
+.catch(error => {
+ console.log(error)
 })
-
-app.put("/films/:id", (req, res)=> {
-    const filmsId = req.params.id 
-
-    return res.send()
-})
-
-app.delete("/films/:id", (req, res)=> {
-    const filmsId = req.params.id
-
-    return res.send()
-})
-
-app.listen(4000, () =>{
-    console.log("Server running");
-    
-});
