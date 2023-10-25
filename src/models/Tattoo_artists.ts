@@ -1,21 +1,15 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
-@Entity("tasks")
-export class Task extends BaseEntity{
+@Entity("tattoo_artists")
+export class Tattoo_artist extends BaseEntity{
   @PrimaryGeneratedColumn()
   id!: number
 
   @Column()
-  title!: string
+  name!: string
 
   @Column()
-  description!: string
-
-  @Column()
-  status!: boolean
-
-  @Column()
-  user_id!: number
+  role!: string;
   
   @Column()
   created_at!: Date

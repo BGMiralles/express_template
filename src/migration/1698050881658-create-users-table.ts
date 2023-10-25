@@ -25,20 +25,24 @@ export class CreateUsersTable1698050881658 implements MigrationInterface {
                         isUnique: true
                     },
                     {
+                        name: "phone_number",
+                        type: "int"
+                    },
+                    {
                         name: "password",
                         type: "varchar",
                         length: "200"
-                    },
-                    {
-                        name: "is_active",
-                        type: "boolean",
-                        default: true
                     },
                     {
                         name: "role",
                         type: "enum",
                         enum: ["user", "admin", "super_admin"],
                         default: '"user"'
+                    },
+                    {
+                        name: "is_active",
+                        type: "boolean",
+                        default: true
                     },
                     {
                         name: "created_at",

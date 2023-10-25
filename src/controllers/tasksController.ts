@@ -1,20 +1,17 @@
 import { Request, Response } from "express";
-import { Task } from "../models/Task";
+import { Tattoo_artist } from "../models/Tattoo_artists";
 
 const createTask = async(req: Request, res: Response) => {
   try {
-    //recuperar la info
-    const title = req.body.title
-    const description = req.body.description
+    const name = req.body.name
 
     //validar si hace falta la info
     //tratar si hace falta la info
 
-    const task = await Task.create(
+    const tattoo_artists = await Tattoo_artist.create(
       {
-        title: title,
-        description: description,
-        user_id: req.token.id
+        name: name,
+        id: req.token.id
       }
     ).save()
 
@@ -22,7 +19,7 @@ const createTask = async(req: Request, res: Response) => {
       {
         success: true,
         message: "users retrieved",
-        data: task
+        data: tattoo_artists
       }
     )
     
@@ -39,9 +36,9 @@ const createTask = async(req: Request, res: Response) => {
 
 const getAllTasksByUserId = async(req: Request, res: Response) => {
   try {
-    const tasks = await Task.findBy(
+    const tasks = await Tattoo_artist.findBy(
       {
-        user_id: req.token.id
+        id: req.token.id
       }
     )
 
@@ -63,10 +60,10 @@ const getTaskByUserId = async(req: Request, res: Response) => {
   try {
     const taskId = req.params.id
 
-    const task = await Task.findOneBy(
+    const task = await Tattoo_artist.findOneBy(
       {
         id: parseInt(taskId),
-        user_id: req.token.id
+        id: req.token.id
       }
     )
 
@@ -103,7 +100,7 @@ const updateTaskById = async(req: Request, res: Response) => {
     // comprobarmos si la task nos pertenece 
     const taskId = req.params.id
 
-    const task = await Task.findOneBy(
+    const task = await Tattoo_artist.findOneBy(
       {
         id: parseInt(taskId),
         user_id: req.token.id
@@ -117,7 +114,7 @@ const updateTaskById = async(req: Request, res: Response) => {
       })
     }
 
-    const updateTask = await Task.update(
+    const updateTask = await Tattoo_artist.update(
       {
         id: parseInt(taskId)
       },

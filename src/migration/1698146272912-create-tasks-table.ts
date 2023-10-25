@@ -5,7 +5,7 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
             await queryRunner.createTable(
                 new Table({
-                    name: "tasks",
+                    name: "tattoo_artists",
                     columns: [
                         {
                             name: "id",
@@ -15,23 +15,15 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
                             generationStrategy: "increment",
                         },
                         {
-                            name: "title",
+                            name: "name",
                             type: "varchar",
                             length: "50", 
                         },
                         {
-                            name: "description",
-                            type: "varchar",
-                            length: "150", 
-                        },
-                        {
-                            name: "status",
-                            type: "boolean",
-                            default: false,                        
-                        },
-                        {
-                            name: "user_id",
-                            type: "int"
+                            name: "role",
+                            type: "enum",
+                            enum: ["user", "admin", "super_admin"],
+                            default: '"admin"'
                         },
                         {
                             name: "created_at",
@@ -44,14 +36,6 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
                             default: "CURRENT_TIMESTAMP",
                             onUpdate: "CURRENT_TIMESTAMP"                 
                         },
-                    ],
-                    foreignKeys: [
-                        {
-                            columnNames: ["user_id"],
-                            referencedTableName: "users",
-                            referencedColumnNames: ["id"],
-                            onDelete: "CASCADE",
-                        }
                     ]
                 }),
                 true
@@ -59,7 +43,7 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("tasks");
+        await queryRunner.dropTable("tattoo_artists");
     }
 
 }

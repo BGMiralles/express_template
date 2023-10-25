@@ -5,36 +5,27 @@ import bcrypt from "bcrypt";
 
 const register = async (req: Request, res: Response) => {
   try {
-    // const { username, email, password } = req.body
-    // recuperamos la info que nos envian desde el body
-    const username = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password
-
-    // validaciones email, password
+    const { username, email,phone_number, password } = req.body
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if (!emailRegex.test(email)) {
       return res.json({ mensaje: 'Correo electrónico no válido' });
     }
 
-    // Validacion password
-    // const passswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
-    // if (!passswordRegex.test(password)) {
-    //   return res.json({ mensaje: 'Password no válido' });
-    // }
+    const passswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+    if (!passswordRegex.test(password)) {
+      return res.json({ mensaje: 'Password no válido' });
+    }
 
-    // trato la informacion
     const encryptedPassword = bcrypt.hashSync(password, 10)
 
-    // Guardamos la info en la bd
     const newUser = await User.create({
       username: username,
       email: email,
+      phone_number: phone_number,
       password: encryptedPassword
     }).save()
 
-    // devolvemos una respuesta
     return res.json({
       success: true,
       message: "User created succesfully",
@@ -53,11 +44,8 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
-    //recupero info del body
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
 
-    // consulto en bd un usuario por email
     const user = await User.findOneBy(
       {
         email: email
