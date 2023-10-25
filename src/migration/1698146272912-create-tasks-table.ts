@@ -15,7 +15,7 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
                             generationStrategy: "increment",
                         },
                         {
-                            name: "name",
+                            name: "tattoo_artist",
                             type: "varchar",
                             length: "50", 
                         },
