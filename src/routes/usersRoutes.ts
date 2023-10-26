@@ -5,11 +5,11 @@ import { isSuperAdmin } from "../middlewares/isSuperAdmin";
 
 const router = Router()
 
-router.post('/register', register)
-router.post('/login', login)
+// router.post('/register', register)
+// router.post('/login', login)
 
-router.get('/profile', auth, profile)
+// router.get('/profile', auth, profile)
 
-router.get('/all', auth, isSuperAdmin, getAllUsers)
+// router.get('/all', auth, isSuperAdmin, getAllUsers)
 
 export { router }

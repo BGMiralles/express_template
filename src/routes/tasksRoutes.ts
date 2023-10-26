@@ -4,9 +4,9 @@ import { auth } from "../middlewares/auth";
 
 const router = Router()
 
-router.post('/', auth, createTask)
-router.get('/', auth, getAllTasksByUserId)
-router.get('/:id', auth, getTaskByUserId)
-router.put('/:id', auth, updateTaskById)
+// router.post('/', auth, createTask)
+// router.get('/', auth, getAllTasksByUserId)
+// // router.get('/:id', auth, getTaskByUserId)
+// router.put('/:id', auth, updateTaskById)
 
 export { router }
