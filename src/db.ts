@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   migrations: [
     CreateUsersTable1698050881658,
     CreateTasksTable1698146272912,
-    // CreateTableTattos1698244374586,
+    CreateTableTattos1698244374586,
     CreateTableQuotes1698245752905
   ],
   synchronize: false,

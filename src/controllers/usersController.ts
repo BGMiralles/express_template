@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 const register = async (req: Request, res: Response) => {
   try {
-    const { username, email,phone_number, password } = req.body
+    const { username, email, phone_number, password } = req.body
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if (!emailRegex.test(email)) {
@@ -70,12 +70,10 @@ const login = async (req: Request, res: Response) => {
       )
     }
 
-    //generar token
     const token = jwt.sign(
       {
         id: user.id,
         role: user.role,
-        email: user.email
       },
       "secreto",
       {
@@ -113,7 +111,7 @@ const profile = async (req: Request, res: Response) => {
     return res.json(
       {
         success: true,
-        message: "profile user retrieved",
+        message: "user profile retrieved",
         data: user
       }
     )
@@ -125,6 +123,36 @@ const profile = async (req: Request, res: Response) => {
         error: error
       }
     )
+  }
+}
+
+const updateUserById = async(req: Request, res: Response) => {
+  try {
+    const {username, email, phone_number, password} = req.body
+
+    const updateUser = await User.update(
+      {
+        id: req.token.id
+      },
+      {
+        username,
+        email,
+        phone_number,
+        password
+      }
+    )
+
+    return res.json({
+      success: true,
+      message: "user updated",
+      data: updateUser
+    })
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "user cant by updated",
+      error: error
+    })
   }
 }
 
@@ -151,4 +179,4 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
-export { register, login, profile, getAllUsers }
+export { register, login, profile, getAllUsers, updateUserById }
