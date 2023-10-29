@@ -1,13 +1,73 @@
 import { Request, Response } from "express";
 import { Tattoo_artist } from "../models/Tattoo_artists";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const login = async (req: Request, res: Response) => {
+  try {
+    const { tattoo_artist, password } = req.body
+
+    const artist = await Tattoo_artist.findOneBy(
+      {
+        tattoo_artist
+      }
+    )
+
+    if (!artist) {
+      return res.status(400).json(
+        {
+          success: true,
+          message: 'Artist or password incorrect',
+        }
+      )
+    }
+
+    if (!bcrypt.compareSync(password, artist.password)) {
+      return res.status(400).json(
+        {
+          success: true,
+          message: 'User or password incorrect',
+        }
+      )
+    }
+
+    const token = jwt.sign(
+      {
+        id: artist.id,
+        role: artist.role,
+      },
+      "secreto",
+      {
+        expiresIn: "3h",
+      }
+    );
+
+    return res.json(
+      {
+        success: true,
+        message: "Artist logged succesfully",
+        token: token
+      }
+    )
+  } catch (error) {
+    return res.status(500).json(
+      {
+        success: false,
+        message: "Artist cant be logged",
+        error: error
+      }
+    )
+  }
+}
 
 const registerTattoArtist = async (req: Request, res: Response) => {
   try {
-    const { name, password } = req.body
+    const { tattoo_artist, password } = req.body
+    const encryptedPassword = bcrypt.hashSync(password, 10)
 
     const newArtist = await Tattoo_artist.create({
-      name,
-      password
+      tattoo_artist,
+      password: encryptedPassword
     }).save()
 
     return res.json({
@@ -26,38 +86,38 @@ const registerTattoArtist = async (req: Request, res: Response) => {
   }
 }
 
-const createTask = async(req: Request, res: Response) => {
-  try {
-    const name = req.body.name
+// const createTask = async(req: Request, res: Response) => {
+//   try {
+//     const name = req.body.name
 
-    //validar si hace falta la info
-    //tratar si hace falta la info
+//     //validar si hace falta la info
+//     //tratar si hace falta la info
 
-    const tattoo_artists = await Tattoo_artist.create(
-      {
-        name: name,
-        id: req.token.id
-      }
-    ).save()
+//     const tattoo_artists = await Tattoo_artist.create(
+//       {
+//         name: name,
+//         id: req.token.id
+//       }
+//     ).save()
 
-    return res.json(
-      {
-        success: true,
-        message: "users retrieved",
-        data: tattoo_artists
-      }
-    )
+//     return res.json(
+//       {
+//         success: true,
+//         message: "users retrieved",
+//         data: tattoo_artists
+//       }
+//     )
     
-  } catch (error) {
-    return res.json(
-      {
-        success: false,
-        message: "task cant be created",
-        error: error
-      }
-    )
-  }
-}
+//   } catch (error) {
+//     return res.json(
+//       {
+//         success: false,
+//         message: "task cant be created",
+//         error: error
+//       }
+//     )
+//   }
+// }
 
 // const getAllTasksByUserId = async(req: Request, res: Response) => {
 //   try {
@@ -181,4 +241,4 @@ const createTask = async(req: Request, res: Response) => {
 //   }
 // }
 
-export { registerTattoArtist, createTask }
+export { registerTattoArtist, login }

@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { registerTattoArtist} from "../controllers/tasksController";
+import { login, registerTattoArtist} from "../controllers/artistsController";
 import { auth } from "../middlewares/auth";
 import { isSuperAdmin } from "../middlewares/isSuperAdmin";
 
+
 const router = Router()
 
-router.post('/register', isSuperAdmin, registerTattoArtist)
+router.post('/login', login)
+router.post('/register',auth, isSuperAdmin, registerTattoArtist)
 // router.get('/', auth, getAllTasksByUserId)
 // router.get('/:id', auth, getTaskByUserId)
 // router.put('/:id', auth, updateTaskById)

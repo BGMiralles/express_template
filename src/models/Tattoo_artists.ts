@@ -7,10 +7,10 @@ export class Tattoo_artist extends BaseEntity{
   id!: number
 
   @Column()
-  name!: string
+  tattoo_artist!: string
 
   @Column()
-  password!: number
+  password!: string
 
   @Column()
   role!: string;
