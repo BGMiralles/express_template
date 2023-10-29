@@ -1,30 +1,30 @@
 import { Request, Response } from "express";
 import { Tattoo_artist } from "../models/Tattoo_artists";
 
-// const registerTattoArtist = async (req: Request, res: Response) => {
-//   try {
-//     const { name, password } = req.body
+const registerTattoArtist = async (req: Request, res: Response) => {
+  try {
+    const { name, password } = req.body
 
-//     const newArtist = await Tattoo_artist.create({
-//       name,
-//       password
-//     }).save()
+    const newArtist = await Tattoo_artist.create({
+      name,
+      password
+    }).save()
 
-//     return res.json({
-//       success: true,
-//       message: "Artist created succesfully",
-//       token: newArtist
-//     })
-//   } catch (error) {
-//     return res.status(500).json(
-//       {
-//         success: false,
-//         message: "Artist cant be created",
-//         error: error
-//       }
-//     )
-//   }
-// }
+    return res.json({
+      success: true,
+      message: "Artist created succesfully",
+      token: newArtist
+    })
+  } catch (error) {
+    return res.status(500).json(
+      {
+        success: false,
+        message: "Artist cant be created",
+        error: error
+      }
+    )
+  }
+}
 
 const createTask = async(req: Request, res: Response) => {
   try {
