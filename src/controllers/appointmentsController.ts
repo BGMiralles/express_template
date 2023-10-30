@@ -37,4 +37,33 @@ const createAppointment = async(req: Request, res: Response) => {
   }
 }
 
-export { createAppointment }
+const updateAppointmentByUserId = async(req: Request, res: Response) => {
+  try {
+    const {tattoo_artist_id, tattoo_id, date} = req.body
+
+    const updateAppointment = await Appointment.update(
+      {
+        user_id: req.token.id
+      },
+      {
+        tattoo_artist_id,
+        tattoo_id,
+        date
+      }
+    )
+
+    return res.json({
+      success: true,
+      message: "Appointment updated",
+      data: updateAppointment
+    })
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Appointment cant by updated",
+      error: error
+    })
+  }
+}
+
+export { createAppointment, updateAppointmentByUserId }
