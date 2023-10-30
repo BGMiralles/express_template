@@ -159,11 +159,11 @@ const updateUserById = async(req: Request, res: Response) => {
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const pageSize: any = req.query.skip || 10
-    const page: any = req.query.page || 1
+    const pageSize = parseInt(req.query.skip as string) || 10
+    const page = parseInt(req.query.page as string) || 1
 
     const skip = (page - 1) * pageSize
-    
+
     const users = await User.find({
       skip: skip,
       take: pageSize

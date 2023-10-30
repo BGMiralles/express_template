@@ -88,7 +88,15 @@ const registerTattoArtist = async (req: Request, res: Response) => {
 
 const getAllArtist = async (req: Request, res: Response) => {
   try {
-    const artists = await Tattoo_artist.find();
+    const pageSize = parseInt(req.query.skip as string) || 10
+    const page = parseInt(req.query.page as string) || 1
+
+    const skip = (page - 1) * pageSize
+    
+    const artists = await Tattoo_artist.find({
+      skip: skip,
+      take: pageSize
+    });
 
     return res.json(
       {

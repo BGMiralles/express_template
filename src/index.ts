@@ -4,6 +4,7 @@ import { router as routerUsers } from "./routes/usersRoutes";
 import { router as routerArtist } from "./routes/tattoArtistsRoutes";
 import { AppDataSource } from "./db";
 import { router as routerAppointments} from "./routes/appointmentsRoutes";
+import { router as routerTattoo} from "./routes/tattoRouters";
 
 const app = express()
 
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 4004
 app.use('/user', routerUsers)
 app.use('/artist' , routerArtist)
 app.use('/appointments', routerAppointments)
+app.use('/tattoo', routerTattoo)
 
 AppDataSource.initialize()
   .then(() => {
