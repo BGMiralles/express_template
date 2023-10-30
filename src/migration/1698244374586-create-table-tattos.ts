@@ -14,14 +14,18 @@ export class CreateTableTattos1698244374586 implements MigrationInterface {
             generationStrategy: "increment",
           },
           {
-            name: "tattoo",
-            type: "varchar",
-            length: "50",
+            name: "work",
+            type: "enum",
+            enum: ["tattoo", "piercing"]
           },
           {
             name: "description",
             type: "varchar",
             length: "255",
+          },
+          {
+            name: "price",
+            type: "int"
           },
           {
             name: "created_at",

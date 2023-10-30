@@ -6,6 +6,6 @@ import { createAppointment } from "../controllers/appointmentsController";
 
 const router = Router()
 
-router.post('/appointment', auth, isAdmin ,createAppointment)
+router.post('/create', auth, createAppointment)
 
 export { router }

@@ -1,25 +1,28 @@
 import { Request, Response } from "express"
+import { Appointment } from "../models/Appointment"
 
 
 const createAppointment = async(req: Request, res: Response) => {
   try {
-    const name = req.body.name
+    const {tattoo_artist_id, tattoo_id, date} = req.body
 
     //validar si hace falta la info
     //tratar si hace falta la info
 
-    const newAppointment = await Tattoo_artist.create(
+    const newAppointment = await Appointment.create(
       {
-        name: name,
-        id: req.token.id
+        user_id: req.token.id,
+        tattoo_artist_id,
+        tattoo_id,
+        date
       }
     ).save()
 
     return res.json(
       {
         success: true,
-        message: "users retrieved",
-        data: tattoo_artists
+        message: "Appointment retrieved",
+        data: newAppointment
       }
     )
     
@@ -27,7 +30,7 @@ const createAppointment = async(req: Request, res: Response) => {
     return res.json(
       {
         success: false,
-        message: "task cant be created",
+        message: "Appointment cant be created",
         error: error
       }
     )

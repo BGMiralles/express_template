@@ -21,10 +21,10 @@ export class CreateTableQuotes1698245752905 implements MigrationInterface {
             name: "tattoo_artist_id",
             type: "int",
           },
-          // {
-          //   name: "tattoo_id",
-          //   type: "int",
-          // },
+          {
+            name: "tattoo_id",
+            type: "int",
+          },
           {
             name: "date",
             type: "timestamp",
@@ -60,12 +60,12 @@ export class CreateTableQuotes1698245752905 implements MigrationInterface {
             referencedColumnNames: ["id"],
             onDelete: "CASCADE",
           },
-          // {
-          //   columnNames: ["tattoo_id"],
-          //   referencedTableName: "tattoos",
-          //   referencedColumnNames: ["id"],
-          //   onDelete: "CASCADE",
-          // },
+          {
+            columnNames: ["tattoo_id"],
+            referencedTableName: "tattoos",
+            referencedColumnNames: ["id"],
+            onDelete: "CASCADE",
+          },
         ],
       }),
       true
