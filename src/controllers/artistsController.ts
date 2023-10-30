@@ -117,6 +117,7 @@ const getAllArtist = async (req: Request, res: Response) => {
   }
 }
 
+
 // const createTask = async(req: Request, res: Response) => {
 //   try {
 //     const name = req.body.name

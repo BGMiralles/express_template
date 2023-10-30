@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { skip } from "node:test";
+import { Appointment } from "../models/Appointment";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -188,4 +189,27 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
-export { register, login, profile, getAllUsers, updateUserById }
+const getAllAppointmentsByUserId = async(req: Request, res: Response) => {
+  try {
+
+    const AllYourAppointment = await Appointment.findBy(
+      {
+        id: req.token.id
+      }
+    )
+
+    return res.json({
+      success: true,
+      message: "Appointments retrieved",
+      data: AllYourAppointment
+    })
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Appointments cant by retrieved",
+      error: error
+    })
+  }
+}
+
+export { register, login, profile, getAllUsers, updateUserById, getAllAppointmentsByUserId }
