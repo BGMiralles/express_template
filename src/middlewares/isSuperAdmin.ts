@@ -4,7 +4,7 @@ import { TokenDecoded } from "../../types";
 
 const isSuperAdmin = (req: Request, res: Response, next: NextFunction) => {
   if (req.token.role !== "super_admin") {
-    return res.json("NO PUEDES PASAR");
+    return res.json("You do not have the necessary credentials");
   }
 
   next();
