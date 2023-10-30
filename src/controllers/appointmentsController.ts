@@ -66,4 +66,28 @@ const updateAppointmentByUserId = async(req: Request, res: Response) => {
   }
 }
 
-export { createAppointment, updateAppointmentByUserId }
+const deleteAppointmentByUserId = async (req: Request, res: Response) => {
+  try {
+    const appointmentToRemove = await Appointment.findOneBy({
+      user_id: req.token.id,
+      id : req.body.id
+    });
+    if (appointmentToRemove) {
+      await Appointment.remove(appointmentToRemove);
+    }
+
+    return res.json({
+      success: true,
+      message: "Appointment deleted",
+      data: appointmentToRemove,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Appointment cant by deleted",
+      error: error,
+    });
+  }
+};
+
+export { createAppointment, updateAppointmentByUserId, deleteAppointmentByUserId }
