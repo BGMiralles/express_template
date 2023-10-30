@@ -86,6 +86,29 @@ const registerTattoArtist = async (req: Request, res: Response) => {
   }
 }
 
+const getAllArtist = async (req: Request, res: Response) => {
+  try {
+    const artists = await Tattoo_artist.find();
+
+    return res.json(
+      {
+        success: true,
+        message: "Artists retrieved",
+        data: artists
+      }
+    )
+
+  } catch (error) {
+    return res.json(
+      {
+        success: false,
+        message: "Artists cant be retrieved",
+        error: error
+      }
+    )
+  }
+}
+
 // const createTask = async(req: Request, res: Response) => {
 //   try {
 //     const name = req.body.name
@@ -241,4 +264,4 @@ const registerTattoArtist = async (req: Request, res: Response) => {
 //   }
 // }
 
-export { registerTattoArtist, login }
+export { registerTattoArtist, login, getAllArtist }

@@ -46,5 +46,3 @@ const isSuperAdmin = (req: Request, res: Response, next: NextFunction) => {
 
 
 export { isSuperAdmin };
-
-//$10$e0JfODkd9Yg7.n0B49BhauHbMN.k8Wld7TuQdlzBJ9/1UaBUyQTLm -> !aAzzz
