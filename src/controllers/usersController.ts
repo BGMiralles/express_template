@@ -194,7 +194,7 @@ const getAllAppointmentsByUserId = async(req: Request, res: Response) => {
 
     const AllYourAppointment = await Appointment.findBy(
       {
-        id: req.token.id
+        user_id: req.token.id
       }
     )
 

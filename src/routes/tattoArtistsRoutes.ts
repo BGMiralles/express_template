@@ -3,6 +3,7 @@ import { getAllArtist, login, registerTattoArtist} from "../controllers/artistsC
 import { auth } from "../middlewares/auth";
 import { isSuperAdmin } from "../middlewares/isSuperAdmin";
 import { isAdmin } from "../middlewares/isAdmin";
+import { getAllAppointmentsByUserId } from "../controllers/usersController";
 
 
 const router = Router()
@@ -10,6 +11,7 @@ const router = Router()
 router.post('/login', login)
 router.post('/register',auth, isSuperAdmin, registerTattoArtist)
 router.get('/all', auth, isAdmin, getAllArtist)
+router.get('/myAppointments', auth, isAdmin, getAllAppointmentsByUserId)
 // router.get('/', auth, getAllTasksByUserId)
 // router.get('/:id', auth, getTaskByUserId)
 // router.put('/:id', auth, updateTaskById)

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Tattoo_artist } from "../models/Tattoo_artists";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Appointment } from "../models/Appointment";
 
 const login = async (req: Request, res: Response) => {
   try {
@@ -117,6 +118,28 @@ const getAllArtist = async (req: Request, res: Response) => {
   }
 }
 
+const getAllAppointmentsByArtistId = async(req: Request, res: Response) => {
+  try {
+
+    const AllYourAppointment = await Appointment.findBy(
+      {
+        tattoo_artist_id: req.token.id
+      }
+    )
+
+    return res.json({
+      success: true,
+      message: "Appointments retrieved",
+      data: AllYourAppointment
+    })
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Appointments cant by retrieved",
+      error: error
+    })
+  }
+}
 
 // const createTask = async(req: Request, res: Response) => {
 //   try {
