@@ -10,8 +10,10 @@ import { CreateTableQuotes1698245752905 } from "./migration/1698245752905-create
 import { Tattoo } from "./models/Tattoo";
 import { Appointment } from "./models/Appointment";
 
+type database = "mysql" | "mariadb"
+
 export const AppDataSource = new DataSource({
-  type: "mysql",
+  type: process.env.DB_TYPE as database,
   host: process.env.DB_HOST,
   port: 3306,
   username: process.env.DB_USERNAME,

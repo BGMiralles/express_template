@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 import bcrypt from "bcrypt";
+import { skip } from "node:test";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -158,7 +159,15 @@ const updateUserById = async(req: Request, res: Response) => {
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await User.find();
+    const pageSize: any = req.query.skip || 10
+    const page: any = req.query.page || 1
+
+    const skip = (page - 1) * pageSize
+    
+    const users = await User.find({
+      skip: skip,
+      take: pageSize
+    });
 
     return res.json(
       {
