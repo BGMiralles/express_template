@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import 'dotenv/config'
 import { CreateUsersTable1698050881658 } from "./migration/1698050881658-create-users-table";
 import { User } from "./models/User";
 import { CreateTasksTable1698146272912 } from "./migration/1698146272912-create-tasks-table";
@@ -11,11 +12,11 @@ import { Appointment } from "./models/Appointment";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
-  host: "localhost",
+  host: process.env.DB_HOST,
   port: 3306,
-  username: "root",
-  password: "borjitA90?",
-  database: "tatto",
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   entities: [User, Tattoo_artist, Tattoo, Appointment],
   migrations: [
     CreateUsersTable1698050881658,

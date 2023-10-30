@@ -26,7 +26,7 @@ const login = async (req: Request, res: Response) => {
       return res.status(400).json(
         {
           success: true,
-          message: 'User or password incorrect',
+          message: 'Artist or password incorrect',
         }
       )
     }

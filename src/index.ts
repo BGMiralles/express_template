@@ -1,4 +1,5 @@
 import express from "express";
+import 'dotenv/config'
 import { router as routerUsers } from "./routes/usersRoutes";
 import { router as routerArtist } from "./routes/tattoArtistsRoutes";
 import { AppDataSource } from "./db";
