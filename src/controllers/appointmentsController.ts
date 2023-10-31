@@ -39,10 +39,11 @@ const createAppointment = async(req: Request, res: Response) => {
 
 const updateAppointmentByUserId = async(req: Request, res: Response) => {
   try {
-    const {tattoo_artist_id, tattoo_id, date} = req.body
+    const {id, tattoo_artist_id, tattoo_id, date} = req.body
 
     const updateAppointment = await Appointment.update(
       {
+        id,
         user_id: req.token.id
       },
       {

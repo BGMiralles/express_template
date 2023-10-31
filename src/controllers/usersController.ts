@@ -77,7 +77,7 @@ const login = async (req: Request, res: Response) => {
         id: user.id,
         role: user.role,
       },
-      "secreto",
+      process.env.JWT_SECRET as string,
       {
         expiresIn: "3h",
       }
