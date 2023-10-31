@@ -64,6 +64,11 @@ const login = async (req: Request, res: Response) => {
 const registerTattoArtist = async (req: Request, res: Response) => {
   try {
     const { tattoo_artist, password } = req.body
+
+    const passswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+    if (!passswordRegex.test(password)) {
+      return res.json({ mensaje: 'Password no válido' });
+    }
     const encryptedPassword = bcrypt.hashSync(password, 10)
 
     const newArtist = await Tattoo_artist.create({
