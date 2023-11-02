@@ -11,13 +11,13 @@ const register = async (req: Request, res: Response) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if (!emailRegex.test(email)) {
-      return res.json({ mensaje: "Correo electrónico no válido" });
+      return res.json({ message: "Invalid email" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password)) {
-      return res.json({ mensaje: "Password no válido" });
+      return res.json({ message: "Invalid password" });
     }
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -46,6 +46,17 @@ const register = async (req: Request, res: Response) => {
 const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!emailRegex.test(email)) {
+      return res.json({ message: "Invalid email" });
+    }
+
+    const passswordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+    if (!passswordRegex.test(password)) {
+      return res.json({ message: "Invalid password" });
+    }
 
     const user = await User.findOneBy({
       email: email,
@@ -113,6 +124,22 @@ const profile = async (req: Request, res: Response) => {
 const updateUserById = async (req: Request, res: Response) => {
   try {
     const { username, email, phone_number, password } = req.body;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!emailRegex.test(email)) {
+      return res.json({ message: "Invalid email" });
+    }
+
+    const passswordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+    if (!passswordRegex.test(password)) {
+      return res.json({ message: "Invalid password" });
+    }
+
+    const phoneRegex = /^\d{10,15}$/
+    if(!phoneRegex.test(phone_number)){
+      return res.json({message: "Invalid phone number"})
+    }
 
     const updateUser = await User.update(
       {
