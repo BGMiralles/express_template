@@ -6,7 +6,7 @@ const createTattoo = async (req: Request, res: Response) => {
     const { work, description, price } = req.body;
 
     const descriptionregex = /^[a-zA-Z]+$/;
-    if (!descriptionregex.test(description)) {
+    if (!descriptionregex.test(description) && description < 0 && description > 255) {
       return res.status(400).json({ message: "Invalid description" });
     }
 
@@ -41,7 +41,7 @@ const updateTattoById = async (req: Request, res: Response) => {
     const { id, work, description, price } = req.body;
 
     const descriptionregex = /^[a-zA-Z]+$/;
-    if (!descriptionregex.test(description)) {
+    if (!descriptionregex.test(description)&& description < 0 && description > 255) {
       return res.status(400).json({ message: "Invalid description" });
     }
 
