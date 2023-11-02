@@ -11,7 +11,7 @@ const login = async (req: Request, res: Response) => {
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password)) {
-      return res.json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid password" });
     }
 
     const artist = await Tattoo_artist.findOneBy({
@@ -64,13 +64,13 @@ const registerTattoArtist = async (req: Request, res: Response) => {
     const tattoo_artistRegex = /^[a-zA-Z ']+$/;
 
     if (!tattoo_artistRegex.test(tattoo_artist)) {
-      return res.json({ message: "Invalid tattoo artist" });
+      return res.status(400).json({ message: "Invalid tattoo artist" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password)) {
-      return res.json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid password" });
     }
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -121,7 +121,7 @@ const getAllArtist = async (req: Request, res: Response) => {
 
 const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
   try {
-    const artist_id = req.token.id
+    const artist_id = req.token.id;
     const AllYourAppointment = await Appointment.find({
       select: {
         id: true,
@@ -133,37 +133,37 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
         user: {
           id: true,
           username: true,
-          email: true
+          email: true,
         },
         tattoo: {
           work: true,
           description: true,
-          price: true
+          price: true,
         },
         tattoo_artist: {
-          tattoo_artist: true
-        }
+          tattoo_artist: true,
+        },
       },
-      where:{
-        tattoo_artist_id: artist_id
+      where: {
+        tattoo_artist_id: artist_id,
       },
       relations: {
         user: true,
         tattoo: true,
-        tattoo_artist: true
+        tattoo_artist: true,
       },
     });
 
     const niceView = AllYourAppointment.map((user) => ({
-      id : user.id,
+      id: user.id,
       user_name: user.user.username,
       tattoo_artist_name: user.tattoo_artist.tattoo_artist,
       work: user.tattoo.work,
       description: user.tattoo.description,
       price: user.tattoo.price,
       date: user.date,
-      status: user.status
-    }))
+      status: user.status,
+    }));
 
     return res.json({
       success: true,
@@ -179,4 +179,9 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
   }
 };
 
-export { registerTattoArtist, login, getAllArtist, getAllAppointmentsByArtistId };
+export {
+  registerTattoArtist,
+  login,
+  getAllArtist,
+  getAllAppointmentsByArtistId,
+};

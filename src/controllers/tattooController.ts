@@ -5,14 +5,14 @@ const createTattoo = async (req: Request, res: Response) => {
   try {
     const { work, description, price } = req.body;
 
-    const descriptionregex = /^[a-zA-Z]+$/
-    if(!descriptionregex.test(description)){
-      return res.json({message: "Invalid description"})
+    const descriptionregex = /^[a-zA-Z]+$/;
+    if (!descriptionregex.test(description)) {
+      return res.status(400).json({ message: "Invalid description" });
     }
 
-    const priceRegex = /^\d{1,10}$/
-    if(!priceRegex.test(price)){
-      return res.json({message: "Invalid price"})
+    const priceRegex = /^\d{1,10}$/;
+    if (!priceRegex.test(price)) {
+      return res.status(400).json({ message: "Invalid price" });
     }
 
     const newTattoo = await Tattoo.create({
@@ -40,14 +40,14 @@ const updateTattoById = async (req: Request, res: Response) => {
   try {
     const { id, work, description, price } = req.body;
 
-    const descriptionregex = /^[a-zA-Z]+$/
-    if(!descriptionregex.test(description)){
-      return res.json({message: "Invalid description"})
+    const descriptionregex = /^[a-zA-Z]+$/;
+    if (!descriptionregex.test(description)) {
+      return res.status(400).json({ message: "Invalid description" });
     }
 
-    const priceRegex = /^\d{1,10}$/
-    if(!priceRegex.test(price)){
-      return res.json({message: "Invalid price"})
+    const priceRegex = /^\d{1,10}$/;
+    if (!priceRegex.test(price)) {
+      return res.status(400).json({ message: "Invalid price" });
     }
 
     const updateWork = await Tattoo.update(

@@ -10,14 +10,14 @@ const register = async (req: Request, res: Response) => {
     const { username, email, phone_number, password } = req.body;
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailRegex.test(email)) {
-      return res.json({ message: "Invalid email" });
+    if (!emailRegex.test(email) && email < 0 && email > 100) {
+      return res.status(400).json({ message: "Invalid email" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
-    if (!passswordRegex.test(password)) {
-      return res.json({ message: "Invalid password" });
+    if (!passswordRegex.test(password) && password < 0 && password > 200) {
+      return res.status(400).json({ message: "Invalid password" });
     }
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -48,14 +48,14 @@ const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailRegex.test(email)) {
-      return res.json({ message: "Invalid email" });
+    if (!emailRegex.test(email) && email < 0 && email > 100) {
+      return res.status(400).json({ message: "Invalid email" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
-    if (!passswordRegex.test(password)) {
-      return res.json({ message: "Invalid password" });
+    if (!passswordRegex.test(password) && password < 0 && password > 200) {
+      return res.status(400).json({ message: "Invalid password" });
     }
 
     const user = await User.findOneBy({
@@ -126,19 +126,19 @@ const updateUserById = async (req: Request, res: Response) => {
     const { username, email, phone_number, password } = req.body;
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailRegex.test(email)) {
-      return res.json({ message: "Invalid email" });
+    if (!emailRegex.test(email) && email < 0 && email > 100) {
+      return res.status(400).json({ message: "Invalid email" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
-    if (!passswordRegex.test(password)) {
-      return res.json({ message: "Invalid password" });
+    if (!passswordRegex.test(password) && password < 0 && password > 200) {
+      return res.status(400).json({ message: "Invalid password" });
     }
 
-    const phoneRegex = /^\d{10,15}$/
-    if(!phoneRegex.test(phone_number)){
-      return res.json({message: "Invalid phone number"})
+    const phoneRegex = /^\d{10,15}$/;
+    if (!phoneRegex.test(phone_number)) {
+      return res.status(400).json({ message: "Invalid phone number" });
     }
 
     const updateUser = await User.update(
@@ -226,18 +226,18 @@ const getAllAppointmentsByUserId = async (req: Request, res: Response) => {
         tattoo: true,
         tattoo_artist: true,
       },
-  });
+    });
 
     const niceView = AllYourAppointment.map((user) => ({
-      id : user.id,
+      id: user.id,
       user_name: user.user.username,
       tattoo_artist_name: user.tattoo_artist.tattoo_artist,
       work: user.tattoo.work,
       description: user.tattoo.description,
       price: user.tattoo.price,
       date: user.date,
-      status: user.status
-    }))
+      status: user.status,
+    }));
 
     return res.json({
       success: true,
@@ -287,7 +287,7 @@ const updateUserRole = async (req: Request, res: Response) => {
         id,
       },
       {
-        role
+        role,
       }
     );
 
@@ -303,7 +303,7 @@ const updateUserRole = async (req: Request, res: Response) => {
       error: error,
     });
   }
-}
+};
 
 export {
   register,
@@ -313,5 +313,5 @@ export {
   updateUserById,
   getAllAppointmentsByUserId,
   deleteUser,
-  updateUserRole
+  updateUserRole,
 };
