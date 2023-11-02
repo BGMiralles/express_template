@@ -46,6 +46,22 @@ const createAppointment = async (req: Request, res: Response) => {
 const updateAppointmentByUserId = async (req: Request, res: Response) => {
   try {
     const { id, tattoo_artist_id, tattoo_id, date } = req.body;
+    const dateBody = dayjs(date);
+    
+    const checkDate = await Appointment.findOne({
+      where: {
+        tattoo_artist_id,
+        date
+      },
+    })
+
+    if(checkDate === null){
+    }else{
+      const CheckDate = dayjs(checkDate.date)
+      if (CheckDate.isSame(dateBody)) {
+        return res.status(400).json({message: "Date already in use for this tatto artist"})
+      }
+    }
 
     const updateAppointment = await Appointment.update(
       {
