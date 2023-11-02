@@ -63,7 +63,7 @@ const registerTattoArtist = async (req: Request, res: Response) => {
 
     const tattoo_artistRegex = /^[a-zA-Z ']+$/;
 
-    if (!tattoo_artistRegex.test(tattoo_artist) && tattoo_artist < 0 && tattoo_artist > 50) {
+    if (!tattoo_artistRegex.test(tattoo_artist) || tattoo_artist < 0 || tattoo_artist > 50) {
       return res.status(400).json({ message: "Invalid tattoo artist" });
     }
 
