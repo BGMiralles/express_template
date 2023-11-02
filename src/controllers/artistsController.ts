@@ -8,6 +8,12 @@ const login = async (req: Request, res: Response) => {
   try {
     const { tattoo_artist, password } = req.body;
 
+    const passswordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+    if (!passswordRegex.test(password)) {
+      return res.json({ message: "Invalid password" });
+    }
+
     const artist = await Tattoo_artist.findOneBy({
       tattoo_artist,
     });
@@ -58,13 +64,13 @@ const registerTattoArtist = async (req: Request, res: Response) => {
     const tattoo_artistRegex = /^[a-zA-Z ']+$/;
 
     if (!tattoo_artistRegex.test(tattoo_artist)) {
-      return res.json({ mensaje: "Nombre no válido" });
+      return res.json({ message: "Invalid tattoo artist" });
     }
 
     const passswordRegex =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password)) {
-      return res.json({ mensaje: "Password no válido" });
+      return res.json({ message: "Invalid password" });
     }
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
