@@ -5,8 +5,15 @@ const createTattoo = async (req: Request, res: Response) => {
   try {
     const { work, description, price } = req.body;
 
-    //validar si hace falta la info
-    //tratar si hace falta la info
+    const descriptionregex = /^[a-zA-Z]+$/
+    if(!descriptionregex.test(description)){
+      return res.json({message: "Invalid description"})
+    }
+
+    const priceRegex = /^\d{1,10}$/
+    if(!priceRegex.test(price)){
+      return res.json({message: "Invalid price"})
+    }
 
     const newTattoo = await Tattoo.create({
       id: req.token.id,
@@ -32,6 +39,16 @@ const createTattoo = async (req: Request, res: Response) => {
 const updateTattoById = async (req: Request, res: Response) => {
   try {
     const { id, work, description, price } = req.body;
+
+    const descriptionregex = /^[a-zA-Z]+$/
+    if(!descriptionregex.test(description)){
+      return res.json({message: "Invalid description"})
+    }
+
+    const priceRegex = /^\d{1,10}$/
+    if(!priceRegex.test(price)){
+      return res.json({message: "Invalid price"})
+    }
 
     const updateWork = await Tattoo.update(
       {
