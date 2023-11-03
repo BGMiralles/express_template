@@ -46,7 +46,7 @@ Tercer proyecto creado durante la semana 7 y 8 del bootcamp. Creacion de un back
 
 ## Esquema de la BBDD:
 
-<img src = "./src/images/diagramaDB.jpg" width = "900px">
+<img src = "./src/images/diagramaDB.jpg">
 
 ## Como utilizar la API:
 
