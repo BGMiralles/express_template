@@ -15,7 +15,7 @@ const register = async (req: Request, res: Response) => {
     }
 
     const passswordRegex =
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password) || password < 0 || password > 200) {
       return res.status(400).json({ message: "Invalid password" });
     }
@@ -53,7 +53,7 @@ const login = async (req: Request, res: Response) => {
     }
 
     const passswordRegex =
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{4,12}$/;
     if (!passswordRegex.test(password) || password < 0 || password > 200) {
       return res.status(400).json({ message: "Invalid password" });
     }
@@ -124,21 +124,27 @@ const profile = async (req: Request, res: Response) => {
 const updateUserById = async (req: Request, res: Response) => {
   try {
     const { username, email, phone_number, password } = req.body;
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailRegex.test(email) || email < 0 || email > 100) {
-      return res.status(400).json({ message: "Invalid email" });
+    if (email) {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!emailRegex.test(email) || email < 0 || email > 100) {
+        return res.status(400).json({ message: "Invalid email" });
+      }
     }
 
-    const passswordRegex =
-      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{4,12}$/;
-    if (!passswordRegex.test(password) || password < 0 || password > 200) {
-      return res.status(400).json({ message: "Invalid password" });
+    if (password) {
+      const passswordRegex =
+        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{4,12}$/;
+      if (!passswordRegex.test(password) || password < 0 || password > 200) {
+        return res.status(400).json({ message: "Invalid password" });
+      }
     }
 
-    const phoneRegex = /^\d{10,15}$/;
-    if (!phoneRegex.test(phone_number)) {
-      return res.status(400).json({ message: "Invalid phone number" });
+    if (phone_number) {
+      const phoneRegex = /^\d{10,15}$/;
+      if (!phoneRegex.test(phone_number)) {
+        return res.status(400).json({ message: "Invalid phone number" });
+      }
     }
 
     const updateUser = await User.update(

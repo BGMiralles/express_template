@@ -9,7 +9,7 @@ const router = Router()
 
 router.post('/login', login)
 router.post('/register',auth, isSuperAdmin, registerTattoArtist)
-router.get('/all', auth, isAdmin, getAllArtist)
+router.get('/all', auth, getAllArtist)
 router.get('/myAppointments', auth, isAdmin, getAllAppointmentsByArtistId)
 
 export { router }

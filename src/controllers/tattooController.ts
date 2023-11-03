@@ -24,13 +24,13 @@ const createTattoo = async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: "Appointment retrieved",
+      message: "Tattoo retrieved",
       data: newTattoo,
     });
   } catch (error) {
     return res.json({
       success: false,
-      message: "Appointment cant be created",
+      message: "Tattoo cant be created",
       error: error,
     });
   }

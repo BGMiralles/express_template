@@ -4,6 +4,7 @@ import { isAdmin } from "../middlewares/isAdmin";
 import { createTattoo, deleteTattoo, updateTattoById } from "../controllers/tattooController";
 
 
+
 const router = Router()
 
 router.post('/create', auth, isAdmin, createTattoo)
