@@ -99,4 +99,30 @@ const deleteTattoo = async (req: Request, res: Response) => {
   }
 };
 
-export { createTattoo, updateTattoById, deleteTattoo };
+const getAllTattoos = async (req: Request, res: Response) => {
+  try {
+    const pageSize = parseInt(req.query.skip as string) || 10;
+    const page = parseInt(req.query.page as string) || 1;
+
+    const skip = (page - 1) * pageSize;
+
+    const users = await Tattoo.find({
+      skip: skip,
+      take: pageSize,
+    });
+
+    return res.json({
+      success: true,
+      message: "users retrieved",
+      data: users,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "users cant be retrieved",
+      error: error,
+    });
+  }
+};
+
+export { createTattoo, updateTattoById, deleteTattoo, getAllTattoos };
