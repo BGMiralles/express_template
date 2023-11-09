@@ -15,12 +15,19 @@ const createAppointment = async (req: Request, res: Response) => {
     })
 
     if(checkDate === null){
+
     }else{
       const CheckDate = dayjs(checkDate.date)
       if (CheckDate.isSame(dateBody)) {
         return res.status(400).json({message: "Date already in use for this tatto artist"})
       }
     }
+
+    // if(checkDate !== null){
+    //   const CheckDate = dayjs(checkDate.date)
+    //   if (CheckDate.isSame(dateBody)) {
+    //     return res.status(400).json({message: "Date already in use for this tatto artist"})
+    // }
 
     const newAppointment = await Appointment.create({
       user_id: req.token.id,
