@@ -3,10 +3,10 @@ import { Tattoo } from "../models/Tattoo";
 
 const createTattoo = async (req: Request, res: Response) => {
   try {
-    const { work, description, price } = req.body;
+    const { work, name, description, photo, price } = req.body;
 
-    const descriptionregex = /^[a-zA-Z]+$/;
-    if (!descriptionregex.test(description) || description < 0 || description > 255) {
+    const descriptionregex = /^[\s\S]+$/;
+    if (!(descriptionregex.test(description)) || description.length < 0 || description.length > 255) {
       return res.status(400).json({ message: "Invalid description" });
     }
 
@@ -16,9 +16,10 @@ const createTattoo = async (req: Request, res: Response) => {
     }
 
     const newTattoo = await Tattoo.create({
-      id: req.token.id,
       work,
+      name,
       description,
+      photo,
       price,
     }).save();
 
@@ -28,6 +29,7 @@ const createTattoo = async (req: Request, res: Response) => {
       data: newTattoo,
     });
   } catch (error) {
+    console.error(error)
     return res.json({
       success: false,
       message: "Tattoo cant be created",
@@ -38,7 +40,7 @@ const createTattoo = async (req: Request, res: Response) => {
 
 const updateTattoById = async (req: Request, res: Response) => {
   try {
-    const { id, work, description, price } = req.body;
+    const { id, work, name ,description, photo, price } = req.body;
 
     const descriptionregex = /^[a-zA-Z]+$/;
     if (!descriptionregex.test(description) || description < 0 || description > 255) {
@@ -56,7 +58,9 @@ const updateTattoById = async (req: Request, res: Response) => {
       },
       {
         work,
+        name,
         description,
+        photo,
         price,
       }
     );

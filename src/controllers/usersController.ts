@@ -79,7 +79,9 @@ const login = async (req: Request, res: Response) => {
     const token = jwt.sign(
       {
         id: user.id,
+        username: user.username,
         role: user.role,
+        email: user.email,
       },
       process.env.JWT_SECRET as string,
       {
@@ -217,11 +219,13 @@ const getAllAppointmentsByUserId = async (req: Request, res: Response) => {
         },
         tattoo: {
           work: true,
+          name: true,
           description: true,
           price: true,
         },
         tattoo_artist: {
           tattoo_artist: true,
+          id: true,
         },
       },
       where: {
@@ -238,7 +242,9 @@ const getAllAppointmentsByUserId = async (req: Request, res: Response) => {
       id: user.id,
       user_name: user.user.username,
       tattoo_artist_name: user.tattoo_artist.tattoo_artist,
+      tattoo_artist_id: user.tattoo_artist.id,
       work: user.tattoo.work,
+      name: user.tattoo.name,
       description: user.tattoo.description,
       price: user.tattoo.price,
       date: user.date,

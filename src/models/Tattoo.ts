@@ -10,10 +10,16 @@ export class Tattoo extends BaseEntity{
   work!: string;
 
   @Column()
+  name!: string;
+
+  @Column()
   description!: string;
 
   @Column()
-  price!: number
+  photo!: string;
+
+  @Column()
+  price!: number;
 
   @Column()
   created_at!: Date;

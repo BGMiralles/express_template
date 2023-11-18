@@ -24,6 +24,18 @@ export class CreateTasksTable1698146272912 implements MigrationInterface {
             length: "200",
           },
           {
+            name: "description",
+            type: "varchar",
+            length: "255",
+            default: '"rellenar"',
+          },
+          {
+            name: "photo",
+            type: "varchar",
+            length: "2000",
+            default: '"photo"',
+          },
+          {
             name: "role",
             type: "enum",
             enum: ["user", "admin", "super_admin"],

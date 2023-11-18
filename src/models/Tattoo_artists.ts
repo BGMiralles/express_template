@@ -13,6 +13,12 @@ export class Tattoo_artist extends BaseEntity{
   password!: string
 
   @Column()
+  description!: string
+
+  @Column()
+  photo!: string
+
+  @Column()
   role!: string;
   
   @Column()

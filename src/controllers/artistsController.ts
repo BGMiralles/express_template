@@ -36,6 +36,7 @@ const login = async (req: Request, res: Response) => {
       {
         id: artist.id,
         role: artist.role,
+        name: artist.tattoo_artist,
       },
       process.env.JWT_SECRET as string,
       {
@@ -59,7 +60,7 @@ const login = async (req: Request, res: Response) => {
 
 const registerTattoArtist = async (req: Request, res: Response) => {
   try {
-    const { tattoo_artist, password } = req.body;
+    const { tattoo_artist, password, description, photo } = req.body;
 
     const tattoo_artistRegex = /^[a-zA-Z ']+$/;
 
@@ -77,6 +78,8 @@ const registerTattoArtist = async (req: Request, res: Response) => {
     const newArtist = await Tattoo_artist.create({
       tattoo_artist,
       password: encryptedPassword,
+      description,
+      photo
     }).save();
 
     return res.json({
@@ -134,14 +137,17 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
           id: true,
           username: true,
           email: true,
+          phone_number: true,
         },
         tattoo: {
           work: true,
           description: true,
           price: true,
+          photo: true,
         },
         tattoo_artist: {
           tattoo_artist: true,
+          photo: true,
         },
       },
       where: {
@@ -157,10 +163,13 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
     const niceView = AllYourAppointment.map((user) => ({
       id: user.id,
       user_name: user.user.username,
+      phone_number: user.user.phone_number,
       tattoo_artist_name: user.tattoo_artist.tattoo_artist,
+      photo: user.tattoo_artist.photo,
       work: user.tattoo.work,
       description: user.tattoo.description,
       price: user.tattoo.price,
+      tattoo: user.tattoo.photo,
       date: user.date,
       status: user.status,
     }));

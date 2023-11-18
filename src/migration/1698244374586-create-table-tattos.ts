@@ -19,9 +19,19 @@ export class CreateTableTattos1698244374586 implements MigrationInterface {
             enum: ["tattoo", "piercing"]
           },
           {
+            name: "name",
+            type: "varchar",
+            length: "255",
+          },
+          {
             name: "description",
             type: "varchar",
             length: "255",
+          },
+          {
+            name: "photo",
+            type: "varchar",
+            length: "2000",
           },
           {
             name: "price",
