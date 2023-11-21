@@ -7,9 +7,9 @@ import { createTattoo, deleteTattoo, getAllTattoos, updateTattoById } from "../c
 
 const router = Router()
 
-router.post('/create', createTattoo)
+router.post('/create', auth, isAdmin, createTattoo)
 router.put("/update", auth, isAdmin, updateTattoById)
 router.delete("/delete", auth, isAdmin, deleteTattoo)
-router.get('/all', getAllTattoos)
+router.get('/all', auth, getAllTattoos)
 
 export { router }

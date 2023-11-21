@@ -265,6 +265,66 @@ const getAllAppointmentsByUserId = async (req: Request, res: Response) => {
   }
 };
 
+const getAllAppointmentsBySuperAdmin = async (req: Request, res: Response) => {
+  try {
+    const AllYourAppointment = await Appointment.find({
+      select: {
+        id: true,
+        user_id: true,
+        tattoo_artist_id: true,
+        tattoo_id: true,
+        date: true,
+        status: true,
+        user: {
+          id: true,
+          username: true,
+          email: true,
+        },
+        tattoo: {
+          work: true,
+          name: true,
+          description: true,
+          price: true,
+        },
+        tattoo_artist: {
+          tattoo_artist: true,
+          id: true,
+        },
+      },
+      relations: {
+        user: true,
+        tattoo: true,
+        tattoo_artist: true,
+      },
+    });
+
+    const niceView = AllYourAppointment.map((user) => ({
+      id: user.id,
+      user_name: user.user.username,
+      tattoo_artist_name: user.tattoo_artist.tattoo_artist,
+      tattoo_artist_id: user.tattoo_artist.id,
+      work: user.tattoo.work,
+      name: user.tattoo.name,
+      description: user.tattoo.description,
+      price: user.tattoo.price,
+      date: user.date,
+      status: user.status,
+    }));
+
+    return res.json({
+      success: true,
+      message: "Appointments retrieved",
+      data: niceView,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: "Appointments cant by retrieved",
+      error: error,
+    });
+  }
+};
+
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const id = req.body.id;
@@ -326,4 +386,5 @@ export {
   getAllAppointmentsByUserId,
   deleteUser,
   updateUserRole,
+  getAllAppointmentsBySuperAdmin
 };

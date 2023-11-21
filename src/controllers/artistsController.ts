@@ -141,6 +141,7 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
         },
         tattoo: {
           work: true,
+          name: true,
           description: true,
           price: true,
           photo: true,
@@ -163,13 +164,14 @@ const getAllAppointmentsByArtistId = async (req: Request, res: Response) => {
     const niceView = AllYourAppointment.map((user) => ({
       id: user.id,
       user_name: user.user.username,
+      user_id: user.user.id,
       phone_number: user.user.phone_number,
       tattoo_artist_name: user.tattoo_artist.tattoo_artist,
       photo: user.tattoo_artist.photo,
       work: user.tattoo.work,
       description: user.tattoo.description,
       price: user.tattoo.price,
-      tattoo: user.tattoo.photo,
+      tattoo: user.tattoo.name,
       date: user.date,
       status: user.status,
     }));
